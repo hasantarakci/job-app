@@ -1,10 +1,15 @@
 module.exports = {
-  plugins: ["cypress"],
+  root: true,
   env: {
-    mocha: true,
-    "cypress/globals": true
+    node: true,
   },
+  extends: ['prettier', 'plugin:vue/essential', '@vue/prettier'],
   rules: {
-    strict: "off"
-  }
+    'prettier/prettier': ['error'],
+    'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'off' : 'off',
+  },
+  parserOptions: {
+    parser: 'babel-eslint',
+  },
 };
