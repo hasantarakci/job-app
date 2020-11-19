@@ -1,19 +1,24 @@
 <template>
   <div class="job-detail-wrapper">
     <div class="job-detail">
-      <p>Şirket: {{ jobDetail.companyName }}</p>
-      <p>Pozisyon: {{ jobDetail.positionName }}</p>
-      <p>Açıklama: {{ jobDetail.description }}</p>
-      <p>Adres: {{ jobDetail.address }}</p>
-      <p>
-        Telefon:
-        {{
-          jobDetail.contactPhone.countryCallingCode +
-            jobDetail.contactPhone.areaCode +
-            jobDetail.contactPhone.number
-        }}
-      </p>
-      <p>Yayın Tarihi: {{ jobDetail.durationDay }} gündür yayında</p>
+      <div class="picture-wrapper">
+        <img class="picture" src="@/assets/logo.png" alt="kariyer-picture" />
+      </div>
+      <div class="desc-wrapper">
+        <p>Şirket: {{ jobDetail.companyName }}</p>
+        <p>Pozisyon: {{ jobDetail.positionName }}</p>
+        <p>Açıklama: {{ jobDetail.description }}</p>
+        <p>Adres: {{ jobDetail.address }}</p>
+        <p>
+          Telefon:
+          {{
+            jobDetail.contactPhone.countryCallingCode +
+              jobDetail.contactPhone.areaCode +
+              jobDetail.contactPhone.number
+          }}
+        </p>
+        <p>Yayın Tarihi: {{ jobDetail.durationDay }} gündür yayında</p>
+      </div>
     </div>
     <button @click="goHomePage" class="search-job-button">İş Aramaya Devam Et</button>
   </div>
@@ -40,28 +45,37 @@ export default {
 
 <style lang="scss">
 .job-detail-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   .job-detail {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    border: 1px solid #912da2;
+    max-width: 700px;
+    border: 1px solid #0fc6e6;
     border-radius: 5px;
-    margin: 10px;
-    padding: 10px;
+    margin: 10px auto;
+    .picture-wrapper {
+      border-right: 1px solid #0fc6e6;
+      width: 300px;
+      display: flex;
+
+      .picture {
+        display: block;
+        margin: auto;
+      }
+    }
+    .desc-wrapper {
+      padding: 10px;
+      width: 300px;
+    }
   }
 
   .search-job-button {
-    background-color: #912da2;
+    background-color: #0fc6e6;
     font-size: 20px;
     border: none;
     border-radius: 5px;
     padding: 15px;
     color: #ffffff;
-    margin: 30px 0;
+    margin: 30px auto;
+    display: block;
   }
 }
 </style>

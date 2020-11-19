@@ -3,7 +3,7 @@
     <h1>İşimi Bul'a Hoşgeldiniz!</h1>
     <input class="position-input" v-model="inputData" :placeholder="inputPlaceholder" />
     <button class="position-button" @click="findJob()">Pozisyon Ara</button>
-    <ul class="location-wrapper">
+    <ul v-if="jobsLocation.length" class="location-wrapper">
       <li class="location-list" v-for="(jl, index) in jobsLocation" :key="index">
         <input type="radio" name="location" :value="jl" :id="jl" />
         <label class="location-name" :for="jl">{{ jl }}</label>
@@ -68,13 +68,12 @@ export default {
 .find-job {
   text-align: center;
   .position-input {
-    border-color: #912da2;
-    border-width: 1px;
+    border: 2px solid #0fc6e6;
     border-radius: 5px;
     padding: 5px;
   }
   .position-button {
-    background-color: #912da2;
+    background-color: #0fc6e6;
     border: none;
     border-radius: 5px;
     padding: 7px;
@@ -85,10 +84,11 @@ export default {
     display: flex;
     width: 500px;
     padding: 10px;
-    overflow: scroll;
-    background-color: #912da2;
+    overflow: auto;
+    background-color: #0fc6e6;
     border-radius: 5px;
     margin: 10px auto;
+
     .location-list {
       display: flex;
       padding: 10px 5px;

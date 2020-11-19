@@ -1,9 +1,19 @@
 <template>
   <div class="job-list-wrapper">
     <ul class="job-list">
-      <li @click="goJobDetails(job)" class="job" v-for="job in jobList" :key="job.jobId">
-        <p>Şirket: {{ job.companyName }}</p>
-        <p>Pozisyon: {{ job.positionName }}</p>
+      <li class="job" v-for="job in jobList" :key="job.jobId">
+        <div class="picture-wrapper">
+          <img class="picture" src="@/assets/logo.png" alt="kariyer-picture" />
+        </div>
+        <div class="desc-wrapper">
+          <p>
+            Firma: <span>{{ job.companyName }}</span>
+          </p>
+          <p>
+            Pozisyon: <span>{{ job.positionName }}</span>
+          </p>
+          <span @click="goJobDetails(job)" class="for-details">Detaylar için tıklayın!</span>
+        </div>
       </li>
     </ul>
     <button @click="goHomePage" class="search-job-button">İş Aramaya Devam Et</button>
@@ -86,8 +96,6 @@ export default {
 
 <style lang="scss">
 .job-list-wrapper {
-  display: flex;
-  flex-direction: column;
   ul {
     padding-left: 0;
     li {
@@ -95,31 +103,41 @@ export default {
     }
   }
   .job-list {
-    padding-left: 0;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 285px);
+    grid-gap: 20px;
     .job {
-      display: flex;
-      flex-grow: 1;
-      flex-basis: 250px;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      border: 1px solid #912da2;
+      border: 1px solid #0fc6e6;
       border-radius: 5px;
-      margin: 10px;
-      padding: 10px;
+      .picture-wrapper {
+        height: 200px;
+        border-bottom: 1px solid #0fc6e6;
+        .picture {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+      .desc-wrapper {
+        margin: 16px 10px;
+        .for-details {
+          color: gray;
+          text-decoration: underline;
+          font-style: italic;
+          cursor: pointer;
+        }
+      }
     }
   }
 
   .search-job-button {
-    background-color: #912da2;
+    background-color: #0fc6e6;
     font-size: 20px;
     border: none;
     border-radius: 5px;
     padding: 15px;
     color: #ffffff;
-    margin: 30px 0;
+    margin: 30px auto;
+    display: block;
   }
 }
 </style>
