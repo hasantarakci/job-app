@@ -4,6 +4,10 @@
 ```
 yarn install
 ```
+### Create a REST API with json-server
+```
+json-server --watch db.json 
+```
 
 ### Compiles and hot-reloads for development
 ```

@@ -3,12 +3,14 @@
     <h1>İşimi Bul'a Hoşgeldiniz!</h1>
     <input class="position-input" v-model="inputData" :placeholder="inputPlaceholder" />
     <button class="position-button" @click="findJob()">Pozisyon Ara</button>
-    <ul v-if="jobsLocation.length" class="location-wrapper">
-      <li class="location-list" v-for="(jl, index) in jobsLocation" :key="index">
-        <input type="radio" name="location" :value="jl" :id="jl" />
-        <label class="location-name" :for="jl">{{ jl }}</label>
-      </li>
-    </ul>
+    <div class="location-wrapper">
+      <ul v-if="jobsLocation.length" class="location-list">
+        <li class="location-item" v-for="(jl, index) in jobsLocation" :key="index">
+          <input type="radio" name="location" :value="jl" :id="jl" />
+          <label class="location-name" :for="jl">{{ jl }}</label>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -36,7 +38,7 @@ export default {
       });
       this.$store.dispatch('setSelectLocation', this.selectedLocation);
       this.$store.dispatch('setSearchText', this.inputData);
-      this.$router.push('joblist');
+      this.$router.push('job-list');
 
       this.getJobs();
     },
@@ -67,11 +69,13 @@ export default {
 <style lang="scss">
 .find-job {
   text-align: center;
+
   .position-input {
     border: 2px solid #0fc6e6;
     border-radius: 5px;
     padding: 5px;
   }
+
   .position-button {
     background-color: #0fc6e6;
     border: none;
@@ -80,20 +84,26 @@ export default {
     color: #ffffff;
     margin: 5px;
   }
+
   .location-wrapper {
-    display: flex;
-    width: 500px;
-    padding: 10px;
-    overflow: auto;
-    background-color: #0fc6e6;
-    border-radius: 5px;
     margin: 10px auto;
+    width: calc(100% - 20px);
+    padding: 0 10px;
+    max-width: 520px;
 
     .location-list {
       display: flex;
-      padding: 10px 5px;
-      .location-name {
-        color: #ffffff;
+      padding: 10px;
+      overflow: auto;
+      background-color: #0fc6e6;
+      border-radius: 5px;
+
+      .location-item {
+        display: flex;
+        padding: 10px 5px;
+        .location-name {
+          color: #ffffff;
+        }
       }
     }
   }

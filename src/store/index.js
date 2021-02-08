@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    language: 'en',
     userName: null,
     searchText: null,
     selectLocation: null,
@@ -12,6 +13,9 @@ export default new Vuex.Store({
     jobDetail: null,
   },
   getters: {
+    getLanguageName(state) {
+      return state.language;
+    },
     getUsername(state) {
       return state.userName;
     },
@@ -29,6 +33,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    ['SET_LANGUAGE'](state, language) {
+      state.language = language;
+    },
     ['SET_USER_NAME'](state, userName) {
       state.userName = userName;
     },
@@ -46,6 +53,9 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    setLanguage({ commit }, language) {
+      commit('SET_LANGUAGE', language);
+    },
     setUserName({ commit }, userName) {
       commit('SET_USER_NAME', userName);
     },

@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <BrandHeader></BrandHeader>
-    <div class="body-container">
-      <div id="nav">
-        <router-link to="/">Home</router-link> | <router-link to="/joblist">İş Listesi</router-link>
-      </div>
+    <div class="content-container">
       <router-view />
     </div>
     <BrandFooter></BrandFooter>
@@ -31,24 +28,11 @@ export default {
   max-width: 1200px;
   height: 100%;
   margin: auto;
-  padding: 0 10px;
-  .body-container {
-    min-height: calc(100vh - 160px);
+
+  .content-container {
+    padding: 20px 10px;
+    min-height: calc(100vh - 200px);
     background: #fafafa;
-
-    #nav {
-      padding: 30px;
-      text-align: center;
-
-      a {
-        font-weight: bold;
-        color: #2c3e50;
-
-        &.router-link-exact-active {
-          color: #0fc6e6;
-        }
-      }
-    }
   }
 }
 </style>

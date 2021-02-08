@@ -38,7 +38,7 @@ export default {
     },
     goJobDetails(job) {
       this.$store.dispatch('setJobDetail', job);
-      this.$router.push(`jobdetail/:id=${job.jobId}`);
+      this.$router.push(`job-detail/:id=${job.jobId}`);
     },
     getJobList() {
       let jobList = this.$store.getters.getJobList;
@@ -96,6 +96,8 @@ export default {
 
 <style lang="scss">
 .job-list-wrapper {
+  padding: 0 10px;
+
   ul {
     padding-left: 0;
     li {
@@ -104,7 +106,7 @@ export default {
   }
   .job-list {
     display: grid;
-    grid-template-columns: repeat(4, 285px);
+    grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
     grid-gap: 20px;
     .job {
       border: 1px solid #0fc6e6;
@@ -138,6 +140,16 @@ export default {
     color: #ffffff;
     margin: 30px auto;
     display: block;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .job-list-wrapper {
+    padding: 0;
+
+    .job-list {
+      grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+    }
   }
 }
 </style>
