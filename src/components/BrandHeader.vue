@@ -90,9 +90,6 @@ export default {
         this.userName = this.inputName;
         this.$store.dispatch('setUserName', this.userName);
         this.isLogin = true;
-
-        let hasan = this.$store.getters.getUserName;
-        console.log('aa', hasan);
       }
     },
     logout() {

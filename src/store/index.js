@@ -16,7 +16,7 @@ export default new Vuex.Store({
     getLanguageName(state) {
       return state.language;
     },
-    getUsername(state) {
+    getUserName(state) {
       return state.userName;
     },
     getSearchText(state) {

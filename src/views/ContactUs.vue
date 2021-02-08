@@ -17,9 +17,8 @@ export default {
   methods: {},
   created() {
     let userName = this.$store.getters.getUserName;
-    console.log('11', userName);
     if (userName && userName != null) {
-      console.log(userName);
+      this.nameValue = userName;
     }
   },
 };
