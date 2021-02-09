@@ -1,8 +1,8 @@
 <template>
   <div class="find-job">
-    <h1>İşimi Bul'a Hoşgeldiniz!</h1>
+    <h1>{{ $t('messages.welcomeFindMyJob') }}</h1>
     <input class="position-input" v-model="inputData" :placeholder="inputPlaceholder" />
-    <button class="position-button" @click="findJob()">Pozisyon Ara</button>
+    <button class="position-button" @click="findJob()">{{ $t('messages.searchPosition') }}</button>
     <div class="location-wrapper">
       <ul v-if="jobsLocation.length" class="location-list">
         <li class="location-item" v-for="(jl, index) in jobsLocation" :key="index">
@@ -22,11 +22,15 @@ export default {
   data() {
     return {
       jobs: [],
-      inputPlaceholder: 'Pozisyon, Firma Adı',
       inputData: '',
       jobsLocation: [],
       selectedLocation: '',
     };
+  },
+  computed: {
+    inputPlaceholder() {
+      return this.$t('messages.positionCompanyName');
+    },
   },
   methods: {
     findJob() {
@@ -38,7 +42,7 @@ export default {
       });
       this.$store.dispatch('setSelectLocation', this.selectedLocation);
       this.$store.dispatch('setSearchText', this.inputData);
-      this.$router.push('job-list');
+      this.$router.push('job-postings');
 
       this.getJobs();
     },
@@ -87,9 +91,10 @@ export default {
 
   .location-wrapper {
     margin: 10px auto;
-    width: calc(100% - 20px);
+    width: 100%;
     padding: 0 10px;
     max-width: 520px;
+    box-sizing: border-box;
 
     .location-list {
       display: flex;

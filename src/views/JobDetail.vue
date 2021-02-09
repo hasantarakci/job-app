@@ -5,22 +5,28 @@
         <img class="picture" src="@/assets/logo.png" alt="kariyer-picture" />
       </div>
       <div class="desc-wrapper">
-        <p>Şirket: {{ jobDetail.companyName }}</p>
-        <p>Pozisyon: {{ jobDetail.positionName }}</p>
-        <p>Açıklama: {{ jobDetail.description }}</p>
-        <p>Adres: {{ jobDetail.address }}</p>
+        <p>{{ $t('messages.company') }}: {{ jobDetail.companyName }}</p>
+        <p>{{ $t('messages.position') }}: {{ jobDetail.positionName }}</p>
+        <p>{{ $t('messages.description') }}: {{ jobDetail.description }}</p>
+        <p>{{ $t('messages.adress') }}: {{ jobDetail.address }}</p>
         <p>
-          Telefon:
+          {{ $t('messages.phone') }}:
           {{
             jobDetail.contactPhone.countryCallingCode +
               jobDetail.contactPhone.areaCode +
               jobDetail.contactPhone.number
           }}
         </p>
-        <p>Yayın Tarihi: {{ jobDetail.durationDay }} gündür yayında</p>
+        <p>
+          {{ $t('messages.published') }}: {{ jobDetail.durationDay }}
+          {{ $t('messages.durationDay') }}
+        </p>
+        <p></p>
       </div>
     </div>
-    <button @click="goHomePage" class="search-job-button">İş Aramaya Devam Et</button>
+    <button @click="goHomePage" class="search-job-button">
+      {{ $t('messages.continueToSearch') }}
+    </button>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import JobList from '../views/JobList.vue';
+import JobPostings from '../views/JobPostings.vue';
 import JobDetail from '../views/JobDetail.vue';
 import ContactUs from '../views/ContactUs.vue';
 
@@ -10,22 +10,22 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'homePage',
     component: Home,
   },
   {
-    path: '/job-list',
-    name: 'JobList',
-    component: JobList,
+    path: '/job-postings',
+    name: 'jobPostings',
+    component: JobPostings,
   },
   {
     path: '/job-detail/:id=*',
-    name: 'JobDetail',
+    name: 'jobDetail',
     component: JobDetail,
   },
   {
     path: '/contact-us',
-    name: 'ContactUs',
+    name: 'contactUs',
     component: ContactUs,
   },
 ];

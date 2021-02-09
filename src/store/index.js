@@ -6,18 +6,18 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     language: 'en',
-    userName: null,
+    userInfo: null,
     searchText: null,
     selectLocation: null,
     jobList: null,
     jobDetail: null,
   },
   getters: {
-    getLanguageName(state) {
+    getLanguage(state) {
       return state.language;
     },
-    getUserName(state) {
-      return state.userName;
+    getUserInfo(state) {
+      return state.userInfo;
     },
     getSearchText(state) {
       return state.searchText;
@@ -36,8 +36,8 @@ export default new Vuex.Store({
     ['SET_LANGUAGE'](state, language) {
       state.language = language;
     },
-    ['SET_USER_NAME'](state, userName) {
-      state.userName = userName;
+    ['SET_USER_NAME'](state, userInfo) {
+      state.userInfo = userInfo;
     },
     ['SET_SEARCH_TEXT'](state, searchText) {
       state.searchText = searchText;
@@ -56,8 +56,8 @@ export default new Vuex.Store({
     setLanguage({ commit }, language) {
       commit('SET_LANGUAGE', language);
     },
-    setUserName({ commit }, userName) {
-      commit('SET_USER_NAME', userName);
+    setUserInfo({ commit }, userInfo) {
+      commit('SET_USER_NAME', userInfo);
     },
     setSearchText({ commit }, searchText) {
       commit('SET_SEARCH_TEXT', searchText);

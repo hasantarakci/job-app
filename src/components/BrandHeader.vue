@@ -5,56 +5,33 @@
         <img class="header__left-icon" src="@/assets/logo.png" alt="" />
         <div class="header__left-page">{{ pageName }}</div>
       </div>
-      <div class="header__left-login">
-        <div>Hoşgeldin {{ userName }}</div>
-        <button v-if="!isLogin" class="login-wrapper submit-btn">
-          Giriş Yap
-          <div class="login-modal">
-            <input
-              class="login-input"
-              type="text"
-              v-model="inputName"
-              placeholder="Adınızı Giriniz"
-            />
-            <button class="login-button submit-btn" @click="login">Giriş Yap</button>
-          </div>
-        </button>
-        <button v-if="isLogin" class="logout-button submit-btn" @click="logout">Çıkış Yap</button>
-      </div>
     </div>
 
     <div class="header__nav">
-      <router-link to="/">Ana Sayfa</router-link> |
-      <router-link to="/job-list">İş Listesi</router-link> |
-      <router-link to="/contact-us">Bize Ulaşın</router-link>
+      <router-link
+        class="header__nav-link"
+        v-for="(router, i) in routers"
+        :key="i.name"
+        :to="router.link"
+        >{{ router.name }}</router-link
+      >
     </div>
 
     <div class="header__right">
       <div class="header__right-language">
-        <label class="language-text" for="languages">Choose a language:</label>
-        <select
-          name="languages"
-          id="languages"
-          class="languages"
-          @change="onChangeLanguage($event)"
-          v-model="languageValue"
-        >
-          <option :value="languageEn">English</option>
-          <option :value="languageTr">Turkish</option>
-        </select>
+        <BrandLanguage id="headerLang" name="headerLang" />
+      </div>
+      <div class="header__right-login">
+        <BrandUser />
       </div>
       <div class="header__right-menu">
         <img @click="openMenu" src="@/assets/hamburger.png" alt="" style="width: 30px;" />
         <div v-if="showMenu" class="menu-modal">
           <div class="modal-bg"></div>
           <div class="modal-wrapper">
-            <div @click="closeMenu">
-              Kapat
-            </div>
-            <div class="router-links">
-              <router-link to="/">Ana Sayfa</router-link>
-              <router-link to="/job-list">İş Listesi</router-link>
-              <router-link to="/contact-us">Bize Ulaşın</router-link>
+            <div>
+              <div @click="closeMenu">{{ $t('messages.close') }}</div>
+              <BrandHamburger @closeModal="closeMenu" :routers="routers" />
             </div>
           </div>
         </div>
@@ -63,18 +40,40 @@
   </div>
 </template>
 <script>
+import BrandHamburger from '@/components/BrandHamburger.vue';
+import BrandLanguage from '@/components/BrandLanguage.vue';
+import BrandUser from '@/components/BrandUser.vue';
+
 export default {
   data() {
     return {
-      userName: `User${new Date().getTime()}`,
+      userName: '',
       inputName: '',
       isLogin: false,
       showMenu: false,
-      languageEn: 'English',
-      languageTr: 'Turkish',
-      languageValue: '',
-      pageName: this.$router.currentRoute.name,
     };
+  },
+  components: {
+    BrandHamburger,
+    BrandLanguage,
+    BrandUser,
+  },
+  computed: {
+    pageName() {
+      if (this.$route.name == 'homePage') {
+        return this.$i18n.t('messages.homePageHeader');
+      } else {
+        return this.$i18n.t(`messages.${this.$route.name}`);
+      }
+    },
+    routers() {
+      const routers = [
+        { name: this.$t('messages.homePage'), link: '/' },
+        { name: this.$t('messages.jobPostings'), link: '/job-postings' },
+        { name: this.$t('messages.contactUs'), link: '/contact-us' },
+      ];
+      return routers;
+    },
   },
   methods: {
     openMenu() {
@@ -85,47 +84,15 @@ export default {
       this.showMenu = false;
       document.body.style.overflow = 'auto';
     },
-    login() {
-      if (this.inputName) {
-        this.userName = this.inputName;
-        this.$store.dispatch('setUserName', this.userName);
-        this.isLogin = true;
-      }
-    },
-    logout() {
-      this.isLogin = false;
-      this.userName = `User${new Date().getTime()}`;
-    },
-    onChangeLanguage() {
-      this.$store.dispatch('setLanguage', this.language);
-    },
-    detectBrowserLanguage() {
-      let browserLanguage = navigator.language;
-      if (browserLanguage === 'en-US') {
-        this.languageValue = this.languageEn;
-      } else if (browserLanguage === 'tr') {
-        this.languageValue = this.languageTr;
-      } else {
-        this.languageValue = this.languageEn;
-      }
-    },
-  },
-  watch: {
-    $route(to) {
-      this.pageName = to.name;
-      this.closeMenu();
-    },
-  },
-  created() {
-    this.detectBrowserLanguage();
   },
 };
 </script>
 <style lang="scss">
 .header {
   height: 80px;
-  padding: 0 10px;
-  width: calc(100%-20px);
+  padding: 0 20px;
+  box-sizing: border-box;
+  width: 100%;
   align-items: center;
   position: sticky;
   top: 0;
@@ -138,10 +105,6 @@ export default {
   &__left {
     display: flex;
 
-    &-login {
-      display: none;
-    }
-
     &-router {
       display: flex;
       align-items: center;
@@ -152,61 +115,16 @@ export default {
       height: auto;
       transform: rotate(-90deg);
     }
-
-    .login-wrapper {
-      position: relative;
-      text-align: center;
-      margin-top: 10px;
-
-      &:hover {
-        .login-modal {
-          visibility: visible;
-        }
-      }
-
-      .login-modal {
-        visibility: hidden;
-        transition: visibility 0.4s;
-        padding: 15px;
-        background: white;
-        border: 0.5px solid #031e30;
-        border-radius: 5px;
-        position: absolute;
-        top: 35px;
-        left: 0;
-
-        .login-input {
-          border-color: #031e30;
-          border-width: 2px;
-          border-radius: 5px;
-          padding: 5px;
-        }
-
-        .login-button {
-          width: 100%;
-          margin-top: 10px;
-        }
-      }
-    }
-
-    .logout-button {
-      margin: 10px 0;
-    }
-
-    .submit-btn {
-      background-color: #031e30;
-      color: #ffffff;
-      border: none;
-      border-radius: 5px;
-      padding: 7px;
-      display: block;
-    }
   }
 
   &__nav {
     display: none;
     padding: 20px;
     text-align: center;
+
+    &-link {
+      padding: 0 10px;
+    }
 
     a {
       font-weight: bold;
@@ -222,24 +140,12 @@ export default {
     display: flex;
     align-items: center;
 
+    &-login {
+      display: none;
+    }
+
     &-language {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-
-      .language-text {
-        color: #ffffff;
-      }
-
-      .languages {
-        margin-top: 10px;
-        background: #ffffff;
-        border: none;
-        border-radius: 5px;
-        padding: 6px;
-        color: #031e30;
-        font-size: 13.3333px;
-      }
+      display: none;
     }
 
     &-menu {
@@ -264,23 +170,11 @@ export default {
         height: 100vh;
         width: 300px;
       }
-
-      .router-links {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-      }
     }
   }
 }
 @media screen and (min-width: 1024px) {
   .header {
-    &__left {
-      &-login {
-        display: block;
-      }
-    }
-
     &__nav {
       display: block;
       padding: 20px;
@@ -297,6 +191,15 @@ export default {
     }
 
     &__right {
+      &-language {
+        display: block;
+      }
+
+      &-login {
+        display: block;
+        margin-left: 10px;
+      }
+
       &-menu {
         display: none;
       }

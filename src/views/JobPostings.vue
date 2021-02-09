@@ -7,16 +7,20 @@
         </div>
         <div class="desc-wrapper">
           <p>
-            Firma: <span>{{ job.companyName }}</span>
+            {{ $t('messages.company') }}: <span>{{ job.companyName }}</span>
           </p>
           <p>
-            Pozisyon: <span>{{ job.positionName }}</span>
+            {{ $t('messages.position') }}: <span>{{ job.positionName }}</span>
           </p>
-          <span @click="goJobDetails(job)" class="for-details">Detaylar için tıklayın!</span>
+          <span @click="goJobDetails(job)" class="for-details">{{
+            $t('messages.clickDetails')
+          }}</span>
         </div>
       </li>
     </ul>
-    <button @click="goHomePage" class="search-job-button">İş Aramaya Devam Et</button>
+    <button @click="goHomePage" class="search-job-button">
+      {{ $t('messages.continueToSearch') }}
+    </button>
   </div>
 </template>
 
