@@ -5,7 +5,7 @@
       :name="name"
       :id="id"
       class="languages"
-      @change="onChangeLanguage($event)"
+      @change="onChangeLanguage()"
       v-model="$i18n.locale"
     >
       <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang[1]">

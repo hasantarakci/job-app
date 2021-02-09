@@ -23,6 +23,7 @@
           :placeholder="$t('messages.email')"
         />
 
+        <div class="password-val" v-if="!isPassword">{{ $t('messages.passwordWarning') }}</div>
         <input
           class="login-input"
           type="password"
@@ -31,7 +32,6 @@
           v-model="userPassword"
           :placeholder="$t('messages.password')"
         />
-        <div class="password-val" v-if="!isPassword">{{ $t('messages.passwordWarning') }}</div>
 
         <button class="login-button submit-btn" @click="login">
           {{ $t('messages.login') }}
